@@ -1,0 +1,43 @@
+<%- include("../../partials/startOfHtmlDocument.ejs") %>
+<%- include("../../partials/navbar.ejs") %>
+
+<body>
+    
+    <div class="container">
+        <hr>
+        <% result.articles.rows.forEach(article => { %>
+
+            <div class="card mb-3">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <p class="card-text"><%= article.category.title %></p>
+                        <h5 class="card-title"><%= article.title %></h5>
+                        <p class="card-text"><%- article.body.substr(0, 300) %> ...</p>
+                        <br>
+                        <p class="card-text"><small class="text-muted"><%= article.createdAt %></small></p>
+                        <a class="btn btn-dark float-right btn-s mb-3" href="/<%= article.slug %>">Ler mais</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>  
+
+        <div class="row">
+            <div class="col col-12">
+                <% if(result.page > 2) { %>
+                    <a href="/articles/page/<%= result.page - 1 %>" style="float: left;"><<< Prev</a>
+                <% } else if( result.page == 2) { %>
+                    <a href="/" style="float: left;"><<< Prev</a>
+                <% } %>
+                
+                <% if(result.next){ %>
+                    <a href="/articles/page/<%= result.page + 1 %>" style="float: right;">Next >>></a>
+                <% } %>
+            </div>
+            <hr>
+        </div>
+
+    </div>
+
+</body>
+
+<%- include("../../partials/endOfHtmlDocument.ejs") %>

@@ -1,0 +1,63 @@
+<%- include("../../partials/startOfHtmlDocument.ejs") %>
+<%- include("../../partials/navbar.ejs") %>
+
+<div class="container">
+    <hr>
+    <div class="card">
+
+        <div class="card-header">
+            <h2>Alterar Artigo - <b> <%= article.title %> </b></h2>
+        </div>
+       <div class="card-body">
+            <form method="POST" action="/articles/update">
+                <input type="hidden" name="id" value="<%= article.id %>">
+                <input class="form-control" type="text" name="title" value="<%= article.title %>" placeholder="Defina o título do artigo">
+                <br>
+                <textarea name="body" id="article" class="form-control" placeholder="Escreva o artigo aqui!"> <%= article.body %> </textarea>
+                <br>
+                <label for="">Categoria</label>
+                <select name="category" id="" class="form-control">
+                    <% categories.forEach((category) => { %>
+                        <% if(category.id != article.categoryId) { %>
+                            <option value="<%= category.id %>"> <%= category.title %> </option>
+                        <% } else { %>
+                            <option value="<%= category.id %>" selected> <%= category.title %> </option>
+                        <% } %>
+                    <% }); %>
+                </select>
+                <br>
+                <button class="btn btn-success">Atualizar</button>
+            </form>
+       </div>
+            
+    </div>
+</div>
+
+<%- include("../../partials/endOfHtmlDocument.ejs") %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+
+    tinymce.init({
+        language: 'pt_BR',
+        selector: "#article",
+        plugins: [
+            'advlist',
+            'autolink',
+            'link',
+            'image',
+            'lists',
+            'preview',
+            'searchreplace',
+            'wordcount',
+            'fullscreen',
+            'insertdatetime',
+            'media',
+            'save',
+            'table',
+            'emoticons',
+        ],
+
+    });
+
+</script>
